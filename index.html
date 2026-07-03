@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบบันทึกการใช้ยาและอุปกรณ์ฉุกเฉิน | หอผู้ป่วยหญิง โรงพยาบาลฮอด</title>
+<style>
+  :root{
+    --blue:#0F4C81;
+    --blue-light:#EAF6FF;
+    --white:#FFFFFF;
+    --green:#28A745;
+    --yellow:#FFC107;
+    --red:#DC3545;
+    --blue-grad-a:#0F4C81;
+    --blue-grad-b:#3E8FC9;
+    --text:#1D2939;
+    --muted:#6B7A90;
+    --card-shadow: 0 8px 24px rgba(15,76,129,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI','Noto Sans Thai',sans-serif;
+    background:linear-gradient(180deg,var(--blue-light) 0%, #F6FBFF 40%, #FFFFFF 100%);
+    color:var(--text);
+    min-height:100vh;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:linear-gradient(120deg,var(--blue-grad-a) 0%, var(--blue-grad-b) 60%, #63B4E6 100%);
+    color:#fff;
+    padding:34px 20px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    border-radius:0 0 32px 32px;
+    box-shadow:0 6px 20px rgba(15,76,129,0.25);
+  }
+  header::before, header::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+  }
+  header::before{ width:220px; height:220px; top:-90px; left:-60px; }
+  header::after{ width:160px; height:160px; bottom:-80px; right:-40px; }
+
+  .mascot{
+    font-size:40px;
+    display:inline-block;
+  }
+
+  header h1{
+    font-size:22px;
+    margin:10px auto 4px;
+    max-width:520px;
+    line-height:1.4;
+    position:relative;
+    z-index:2;
+  }
+  header p{
+    margin:0;
+    font-size:13.5px;
+    opacity:0.9;
+    position:relative;
+    z-index:2;
+  }
+  .clock{
+    margin-top:14px;
+    font-variant-numeric: tabular-nums;
+    font-size:15px;
+    background:rgba(255,255,255,0.16);
+    display:inline-block;
+    padding:6px 16px;
+    border-radius:999px;
+    position:relative;
+    z-index:2;
+    letter-spacing:1px;
+  }
+
+  /* ---------- SUMMARY STRIP ---------- */
+  .summary{
+    max-width:920px;
+    margin:-26px auto 0;
+    padding:0 16px;
+    position:relative;
+    z-index:3;
+  }
+  .summary-inner{
+    background:var(--white);
+    border-radius:20px;
+    box-shadow:var(--card-shadow);
+    display:flex;
+    justify-content:space-around;
+    padding:16px 10px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .summary-item{ text-align:center; min-width:80px; }
+  .summary-item .num{ font-size:22px; font-weight:700; color:var(--blue); }
+  .summary-item .lbl{ font-size:11.5px; color:var(--muted); }
+  .summary-item.ok .num{ color:var(--green); }
+  .summary-item.bad .num{ color:var(--red); }
+
+  .bad-list{
+    max-width:920px;
+    margin:10px auto 0;
+    padding:0 16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+  }
+  .bad-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#FDEBED;
+    color:var(--red);
+    font-size:12px;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 2px 6px rgba(220,53,69,0.15);
+  }
+
+  /* ---------- GRID ---------- */
+  main{ max-width:920px; margin:0 auto; padding:28px 16px 60px; }
+  .section-title{
+    font-size:15px;
+    font-weight:700;
+    color:var(--blue);
+    margin:0 0 14px 4px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  @media(max-width:520px){ .grid{ grid-template-columns:1fr; } }
+
+  .card{
+    background:var(--white);
+    border-radius:20px;
+    padding:20px 18px;
+    box-shadow:var(--card-shadow);
+    text-decoration:none;
+    color:var(--text);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    border:1px solid #EDF3F9;
+    transition:transform .18s ease, box-shadow .18s ease;
+    overflow:hidden;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(15,76,129,0.18); }
+  .card::before{
+    content:"";
+    position:absolute; inset:0 0 auto 0; height:5px;
+    background:linear-gradient(90deg,var(--blue-grad-a),var(--blue-grad-b));
+  }
+  .card .icon-row{ display:flex; align-items:center; justify-content:space-between; }
+  .card .icon{
+    font-size:30px;
+    width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:18px;
+    position:relative;
+    isolation:isolate;
+    box-shadow:
+      0 8px 16px -4px var(--icon-shadow, rgba(15,76,129,0.35)),
+      inset 0 2px 2px rgba(255,255,255,0.55),
+      inset 0 -4px 8px rgba(0,0,0,0.14);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+  }
+  .card .icon::before{
+    content:"";
+    position:absolute;
+    top:4px; left:6px; right:6px;
+    height:40%;
+    border-radius:14px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+    z-index:0;
+    pointer-events:none;
+  }
+  .card .icon span{ position:relative; z-index:1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15)); }
+
+  .icon-narcotic{ background:linear-gradient(150deg,#AFD5F0 0%,#78A3D4 55%,#5C87BE 100%); --icon-shadow:rgba(120,163,212,0.55); }
+  .icon-reserve { background:linear-gradient(150deg,#FFC2D1 0%,#FF8FAB 55%,#F2678E 100%); --icon-shadow:rgba(255,143,171,0.5); }
+  .icon-emer    { background:linear-gradient(150deg,#B9DEBD 0%,#76C58C 55%,#4FA76A 100%); --icon-shadow:rgba(102,187,106,0.5); }
+  .icon-defib   { background:linear-gradient(150deg,#FED46E 0%,#FAC240 55%,#E8A315 100%); --icon-shadow:rgba(250,194,64,0.55); }
+  .badge{
+    font-size:11px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    white-space:nowrap;
+  }
+  .badge.ok{ background:#E7F7EC; color:var(--green); }
+  .badge.bad{ background:#FDEBED; color:var(--red); }
+  .badge.unknown{ background:#F1F3F6; color:var(--muted); }
+
+  .card h3{ margin:2px 0 0; font-size:16.5px; }
+  .card .desc{ font-size:12.5px; color:var(--muted); margin:0; line-height:1.5; }
+  .card .meta{
+    font-size:11px; color:var(--muted);
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px dashed #E4EBF2; padding-top:10px; margin-top:auto;
+  }
+  .card .go{ color:var(--blue); font-weight:700; }
+
+  footer{
+    text-align:center;
+    padding:24px 16px 40px;
+    font-size:12px;
+    color:var(--muted);
+  }
+  footer b{ color:var(--blue); }
+
+  /* small cute floating hearts on header tap */
+  .peek{ display:inline-block; animation:wiggle 2.4s ease-in-out infinite; }
+  @keyframes wiggle{ 0%,100%{transform:rotate(0);} 50%{transform:rotate(8deg);} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ระบบบันทึกการใช้ยาและอุปกรณ์ฉุกเฉิน<br>หอผู้ป่วยหญิง โรงพยาบาลฮอด</h1>
+  <p>เลือกรายการด้านล่างเพื่อเข้าสู่ระบบบันทึก / ตรวจสอบ</p>
+  <div class="clock" id="clock">--:--:--</div>
+</header>
+
+<div class="summary">
+  <div class="summary-inner" id="summaryStrip">
+    <div class="summary-item"><div class="num" id="sumTotal">4</div><div class="lbl">ระบบทั้งหมด</div></div>
+    <div class="summary-item ok"><div class="num" id="sumOk">–</div><div class="lbl">ครบวันนี้</div></div>
+    <div class="summary-item bad"><div class="num" id="sumBad">–</div><div class="lbl">ต้องตรวจซ้ำ</div></div>
+  </div>
+  <div class="bad-list" id="badList"></div>
+</div>
+
+<main>
+  <p class="section-title">ระบบทั้งหมด</p>
+  <div class="grid" id="cardGrid"></div>
+</main>
+
+<footer>
+  Crafted with ❤️ by <b>NamfonThayos</b><br>
+  ระบบบันทึกการตรวจสอบยาและอุปกรณ์ฉุกเฉิน หอผู้ป่วยหญิง โรงพยาบาลฮอด
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — แก้ไขตรงนี้ที่เดียวเมื่อจะเชื่อมต่อระบบจริง
+   - url        : ลิงก์ปลายทางเมื่อกดการ์ด (หน้า GitHub Pages หรือ Apps Script)
+   - statusUrl  : (ไม่บังคับ) ปลายทาง Google Apps Script (doGet) ที่คืนค่า JSON
+                  รูปแบบ {"status":"ok"} หรือ {"status":"missing"}
+                  ถ้าไม่ใส่ / เชื่อมต่อไม่ได้ การ์ดจะแสดงสถานะ "ยังไม่เชื่อมต่อ"
+   ============================================================ */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrwXc_d7r4eWeABLUsuNpDYMc-f-7yjFOUwuPoDClZrnp8SJfHtNwOgYCFWdWX2ZsSPQ/exec";
+
+const SYSTEMS = [
+  {
+    key: "narcotic",
+    icon: "💉",
+    title: "ยาเสพติด",
+    desc: "บันทึกการใช้ยาเสพติด • ตรวจนับสต๊อกทุกเวร",
+    url: "narcotic-check.html",
+    statusUrl: `${SCRIPT_URL}?system=narcotic&mode=status`
+  },
+  {
+    key: "reserve",
+    icon: "🐧",
+    title: "ยาสำรองฉุกเฉิน",
+    desc: "บันทึกการใช้ยาสำรอง • ตรวจนับสต๊อกทุกเวร",
+    url: "reserve-check.html",
+    statusUrl: `${SCRIPT_URL}?system=reserve&mode=status`
+  },
+  {
+    key: "emer",
+    icon: "🚑",
+    title: "รถ Emergency",
+    desc: "ตรวจเช็คอุปกรณ์ล้อ Emergency ทุกเวร",
+    url: "emer-cart-check.html",
+    statusUrl: `${SCRIPT_URL}?system=emer&mode=status`
+  },
+  {
+    key: "defib",
+    icon: "⚡",
+    title: "เครื่อง Defibrillator",
+    desc: "ตรวจเช็คทุกเวรเช้า และหลังใช้งานทุกครั้ง",
+    url: "defib-check.html",
+    statusUrl: `${SCRIPT_URL}?system=defib&mode=status`
+  }
+];
+
+function renderClock(){
+  const el = document.getElementById("clock");
+  const now = new Date();
+  const pad = n => String(n).padStart(2,"0");
+  el.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+}
+setInterval(renderClock, 1000);
+renderClock();
+
+function badgeHTML(state){
+  if(state === "ok")      return `<span class="badge ok">✅ ครบ</span>`;
+  if(state === "bad")     return `<span class="badge bad">🚨 ไม่ครบ</span>`;
+  return `<span class="badge unknown">⏳ รอเชื่อมต่อ</span>`;
+}
+
+function cardHTML(sys, state){
+  return `
+    <a class="card" href="${sys.url}" target="_blank" rel="noopener">
+      <div class="icon-row">
+        <div class="icon icon-${sys.key}"><span>${sys.icon}</span></div>
+        ${badgeHTML(state)}
+      </div>
+      <h3>${sys.title}</h3>
+      <p class="desc">${sys.desc}</p>
+      <div class="meta">
+        <span>อัปเดตล่าสุด: <span id="ts-${sys.key}">–</span></span>
+        <span class="go">เข้าสู่ระบบ →</span>
+      </div>
+    </a>`;
+}
+
+async function checkStatus(sys){
+  if(!sys.statusUrl) return { state:"unknown", ts:null };
+  try{
+    const res = await fetch(sys.statusUrl, { method:"GET" });
+    const data = await res.json();
+    return {
+      state: data.status === "ok" ? "ok" : "bad",
+      ts: data.checkedAt || null
+    };
+  }catch(e){
+    return { state:"unknown", ts:null };
+  }
+}
+
+async function init(){
+  const grid = document.getElementById("cardGrid");
+  grid.innerHTML = SYSTEMS.map(s => cardHTML(s, "unknown")).join("");
+
+  let ok = 0, bad = 0, unknown = 0;
+  const badSystems = [];
+  for(const sys of SYSTEMS){
+    const result = await checkStatus(sys);
+    if(result.state === "ok") ok++;
+    else if(result.state === "bad"){ bad++; badSystems.push(sys); }
+    else unknown++;
+
+    // update this card's badge + timestamp in place
+    const card = grid.querySelector(`a[href="${sys.url}"]`);
+    if(card){
+      const badgeEl = card.querySelector(".badge");
+      badgeEl.outerHTML = badgeHTML(result.state);
+      const tsEl = card.querySelector(`#ts-${sys.key}`);
+      if(tsEl) tsEl.textContent = result.ts ? result.ts : (result.state === "unknown" ? "ยังไม่เชื่อมต่อ API" : "–");
+    }
+  }
+  document.getElementById("sumOk").textContent = ok;
+  document.getElementById("sumBad").textContent = bad;
+
+  const badListEl = document.getElementById("badList");
+  if(badSystems.length > 0){
+    badListEl.innerHTML = badSystems.map(sys =>
+      `<a class="bad-chip" href="${sys.url}">🚨 ${sys.title}</a>`
+    ).join("");
+  } else {
+    badListEl.innerHTML = "";
+  }
+}
+init();
+</script>
+</body>
+</html>
