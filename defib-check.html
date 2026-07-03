@@ -46,11 +46,21 @@
   header::before, header::after{
     content:""; position:absolute; border-radius:50%; background:rgba(255,255,255,0.08);
   }
+  .mascot-bg{
+    position:absolute;
+    font-size:150px;
+    line-height:1;
+    opacity:0.16;
+    right:-20px;
+    bottom:-30px;
+    transform:rotate(-8deg);
+    z-index:0;
+    pointer-events:none;
+    filter:brightness(1.6);
+  }
   header::before{ width:200px; height:200px; top:-80px; left:-60px; }
   header::after{ width:150px; height:150px; bottom:-70px; right:-30px; }
   .topbar{ display:flex; justify-content:space-between; align-items:center; position:relative; z-index:2; }
-  .mascot{ font-size:46px; display:block; margin:6px auto 4px; animation:blink 3.2s ease-in-out infinite; }
-  @keyframes blink{ 0%,92%,100%{ transform:scaleY(1); } 96%{ transform:scaleY(0.15); } }
   header h1{ font-size:19px; margin:4px 0 2px; position:relative; z-index:2; }
   header p{ margin:0; font-size:12.5px; opacity:.9; position:relative; z-index:2; }
 
@@ -140,11 +150,11 @@
 <body>
 
 <header>
+  <span class="mascot-bg">🦉</span>
   <div class="topbar">
     <a class="back" href="index.html">← หน้าแรก</a>
     <span></span>
   </div>
-  <span class="mascot">🦉</span>
   <h1>ตรวจเช็คเครื่อง Defibrillator</h1>
   <p>หอผู้ป่วยหญิง โรงพยาบาลฮอด</p>
 </header>
@@ -247,7 +257,7 @@
    - POST (JSON body)    -> บันทึกผลการตรวจ 1 รายการ
    ดูตัวอย่างโค้ดฝั่ง Apps Script ที่ส่งมาคู่กับไฟล์นี้ (Code.gs)
    ============================================================ */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrwXc_d7r4eWeABLUsuNpDYMc-f-7yjFOUwuPoDClZrnp8SJfHtNwOgYCFWdWX2ZsSPQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
 
 // default date/time to now
 const now = new Date();
