@@ -212,7 +212,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
 <div class="toast" id="toast"></div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWZsYePk2Vgn9XdCC6tZJ_V5vb13f8ZQyYMRNoBjBn2lYr2V_hHWF-MWjpeLAIAz_U/exec";
 const SYSTEM_KEY = "narcotic";
 const HAS_PATIENT = true;
 
@@ -233,7 +236,7 @@ function makePatientRow(qtyValue){
 
 document.querySelectorAll(".add-patient-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
-    const container = btn.previousElementSibling;
+    const container = btn.previousElementSibling; // .patient-rows
     container.appendChild(makePatientRow(""));
   });
 });
@@ -260,6 +263,7 @@ function updateRow(row){
     extra.classList.add("show");
     const shortage = std - cur;
     if(usedQty) usedQty.value = shortage.toString();
+    // ถ้ายังไม่มีแถวชื่อผู้ป่วยเลย ให้เพิ่มแถวแรกให้อัตโนมัติ พร้อมจำนวนเริ่มต้น = จำนวนที่ขาด
     if(patientRows && patientRows.children.length === 0){
       patientRows.appendChild(makePatientRow(shortage));
     }
