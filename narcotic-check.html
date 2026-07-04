@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<script src="auth.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>บันทึกการใช้ยาเสพติด | หอผู้ป่วยหญิง โรงพยาบาลฮอด</title>
 <style>
@@ -79,6 +80,17 @@ details[open] summary .arrow::before{ content:"▾"; }
 .extra-fields.show{ display:block; }
 .extra-fields label{ margin:4px 0 3px; }
 .extra-fields .row{ display:flex; gap:8px; }
+.patient-row{ display:flex; gap:6px; margin-top:6px; align-items:center; }
+.patient-row .pQty{ width:64px; padding:8px 6px; text-align:center; }
+.patient-row .pName{ flex:1; padding:8px 10px; }
+.patient-row .removePatientBtn{
+  border:none; background:#FDEBED; color:var(--red); width:28px; height:28px;
+  border-radius:8px; font-size:14px; cursor:pointer; flex-shrink:0;
+}
+.add-patient-btn{
+  margin-top:8px; border:1px dashed var(--blue-grad-a); background:#fff; color:var(--blue-grad-a);
+  padding:6px 12px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:700;
+}
 .summary-bar{ display:flex; justify-content:space-around; text-align:center; margin-top:14px; padding-top:14px; border-top:1px dashed #E4EBF2; }
 .summary-bar div .n{ font-size:19px; font-weight:700; color:var(--blue); }
 .summary-bar div.ok .n{ color:var(--green); }
@@ -119,9 +131,9 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
     <input type="time" id="fTime">
     <label>เวรที่ตรวจ</label>
     <div class="shift-row">
-      <input type="radio" name="shift" id="shiftN" value="เช้า (N)"><label class="opt" for="shiftN">เช้า</label>
-      <input type="radio" name="shift" id="shiftD" value="บ่าย (D)"><label class="opt" for="shiftD">บ่าย</label>
-      <input type="radio" name="shift" id="shiftE" value="ดึก (E)"><label class="opt" for="shiftE">ดึก</label>
+      <input type="radio" name="shift" id="shiftD" value="เช้า (D)"><label class="opt" for="shiftD">เช้า</label>
+      <input type="radio" name="shift" id="shiftE" value="บ่าย (E)"><label class="opt" for="shiftE">บ่าย</label>
+      <input type="radio" name="shift" id="shiftN" value="ดึก (N)"><label class="opt" for="shiftN">ดึก</label>
     </div>
     <label>ชื่อผู้ตรวจ</label>
     <input type="text" id="fInspector" placeholder="ชื่อ-นามสกุล">
@@ -139,16 +151,12 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="extra-fields">
-        <div class="row">
-          <div style="flex:1">
-            <label style="margin-top:0">จำนวนที่ใช้</label>
-            <input type="text" class="usedQty" readonly>
-          </div>
-          <div style="flex:1">
-            <label style="margin-top:0">ชื่อผู้ป่วยที่ใช้</label>
-            <input type="text" class="patientName" placeholder="ชื่อ-สกุลผู้ป่วย">
-          </div>
-        </div></div>
+          <label style="margin-top:0">จำนวนที่ใช้ (รวม)</label>
+          <input type="text" class="usedQty" readonly>
+          <label>รายชื่อผู้ป่วยที่ใช้ (ใส่ได้หลายคน)</label>
+          <div class="patient-rows"></div>
+          <button type="button" class="add-patient-btn">+ เพิ่มชื่อผู้ป่วย</button>
+        </div>
       </div>
       <div class="item-row" data-name="Pethidine inj 50 mg/ml" data-std="2">
         <div class="item-top">
@@ -159,16 +167,12 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="extra-fields">
-        <div class="row">
-          <div style="flex:1">
-            <label style="margin-top:0">จำนวนที่ใช้</label>
-            <input type="text" class="usedQty" readonly>
-          </div>
-          <div style="flex:1">
-            <label style="margin-top:0">ชื่อผู้ป่วยที่ใช้</label>
-            <input type="text" class="patientName" placeholder="ชื่อ-สกุลผู้ป่วย">
-          </div>
-        </div></div>
+          <label style="margin-top:0">จำนวนที่ใช้ (รวม)</label>
+          <input type="text" class="usedQty" readonly>
+          <label>รายชื่อผู้ป่วยที่ใช้ (ใส่ได้หลายคน)</label>
+          <div class="patient-rows"></div>
+          <button type="button" class="add-patient-btn">+ เพิ่มชื่อผู้ป่วย</button>
+        </div>
       </div>
       <div class="item-row" data-name="Midazolam inj 5mg/ml" data-std="1">
         <div class="item-top">
@@ -179,16 +183,12 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="extra-fields">
-        <div class="row">
-          <div style="flex:1">
-            <label style="margin-top:0">จำนวนที่ใช้</label>
-            <input type="text" class="usedQty" readonly>
-          </div>
-          <div style="flex:1">
-            <label style="margin-top:0">ชื่อผู้ป่วยที่ใช้</label>
-            <input type="text" class="patientName" placeholder="ชื่อ-สกุลผู้ป่วย">
-          </div>
-        </div></div>
+          <label style="margin-top:0">จำนวนที่ใช้ (รวม)</label>
+          <input type="text" class="usedQty" readonly>
+          <label>รายชื่อผู้ป่วยที่ใช้ (ใส่ได้หลายคน)</label>
+          <div class="patient-rows"></div>
+          <button type="button" class="add-patient-btn">+ เพิ่มชื่อผู้ป่วย</button>
+        </div>
       </div>
     </div>
     <div class="summary-bar">
@@ -212,9 +212,6 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   CONFIG
-   ============================================================ */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
 const SYSTEM_KEY = "narcotic";
 const HAS_PATIENT = true;
@@ -223,12 +220,31 @@ const now = new Date();
 document.getElementById("fDate").value = now.toISOString().slice(0,10);
 document.getElementById("fTime").value = now.toTimeString().slice(0,5);
 
+function makePatientRow(qtyValue){
+  const div = document.createElement("div");
+  div.className = "patient-row";
+  div.innerHTML = `
+    <input type="number" class="pQty" min="0" placeholder="จำนวน" value="${qtyValue ?? ''}">
+    <input type="text" class="pName" placeholder="ชื่อ-สกุลผู้ป่วย">
+    <button type="button" class="removePatientBtn">✕</button>`;
+  div.querySelector(".removePatientBtn").addEventListener("click", ()=> div.remove());
+  return div;
+}
+
+document.querySelectorAll(".add-patient-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const container = btn.previousElementSibling;
+    container.appendChild(makePatientRow(""));
+  });
+});
+
 function updateRow(row){
   const std = parseFloat(row.dataset.std);
   const curInput = row.querySelector(".curQty");
   const pill = row.querySelector(".status-pill");
   const extra = row.querySelector(".extra-fields");
   const usedQty = row.querySelector(".usedQty");
+  const patientRows = row.querySelector(".patient-rows");
   const cur = curInput.value === "" ? null : parseFloat(curInput.value);
 
   if(cur === null){
@@ -242,7 +258,11 @@ function updateRow(row){
   } else {
     pill.textContent = "ไม่ครบ"; pill.className = "status-pill bad";
     extra.classList.add("show");
-    if(usedQty) usedQty.value = (std - cur).toString();
+    const shortage = std - cur;
+    if(usedQty) usedQty.value = shortage.toString();
+    if(patientRows && patientRows.children.length === 0){
+      patientRows.appendChild(makePatientRow(shortage));
+    }
   }
   updateSummary();
 }
@@ -295,7 +315,11 @@ document.getElementById("submitBtn").addEventListener("click", async ()=>{
     if(!isOk){
       entry.shortage = r.querySelector(".usedQty") ? r.querySelector(".usedQty").value : "";
       if(HAS_PATIENT){
-        entry.patient = r.querySelector(".patientName") ? r.querySelector(".patientName").value.trim() : "";
+        const patientRows = r.querySelectorAll(".patient-row");
+        entry.patients = Array.from(patientRows).map(pr => ({
+          qty: pr.querySelector(".pQty").value,
+          patient: pr.querySelector(".pName").value.trim()
+        })).filter(p => p.patient || p.qty);
       }
     }
     items.push(entry);
