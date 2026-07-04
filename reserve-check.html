@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<script src="auth.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>บันทึกการใช้ยาสำรองฉุกเฉิน | หอผู้ป่วยหญิง โรงพยาบาลฮอด</title>
 <style>
@@ -100,7 +101,7 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
 <body>
 
 <header>
-  <span class="mascot-bg">🐧</span>
+  <span class="mascot-bg">💊</span>
   <div class="topbar">
     <a class="back" href="index.html">← หน้าแรก</a>
     <span></span>
@@ -119,9 +120,9 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
     <input type="time" id="fTime">
     <label>เวรที่ตรวจ</label>
     <div class="shift-row">
-      <input type="radio" name="shift" id="shiftN" value="เช้า (N)"><label class="opt" for="shiftN">เช้า</label>
-      <input type="radio" name="shift" id="shiftD" value="บ่าย (D)"><label class="opt" for="shiftD">บ่าย</label>
-      <input type="radio" name="shift" id="shiftE" value="ดึก (E)"><label class="opt" for="shiftE">ดึก</label>
+      <input type="radio" name="shift" id="shiftD" value="เช้า (D)"><label class="opt" for="shiftD">เช้า</label>
+      <input type="radio" name="shift" id="shiftE" value="บ่าย (E)"><label class="opt" for="shiftE">บ่าย</label>
+      <input type="radio" name="shift" id="shiftN" value="ดึก (N)"><label class="opt" for="shiftN">ดึก</label>
     </div>
     <label>ชื่อผู้ตรวจ</label>
     <input type="text" id="fInspector" placeholder="ชื่อ-นามสกุล">
@@ -233,7 +234,7 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
 /* ============================================================
    CONFIG
    ============================================================ */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWZsYePk2Vgn9XdCC6tZJ_V5vb13f8ZQyYMRNoBjBn2lYr2V_hHWF-MWjpeLAIAz_U/exec";
 const SYSTEM_KEY = "reserve";
 const HAS_PATIENT = false;
 
