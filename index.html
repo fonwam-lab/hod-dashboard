@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<script src="auth.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ระบบบันทึกการใช้ยาและอุปกรณ์ฉุกเฉิน | หอผู้ป่วยหญิง โรงพยาบาลฮอด</title>
 <style>
@@ -26,8 +27,6 @@
     color:var(--text);
     min-height:100vh;
   }
-
-  /* ---------- HEADER ---------- */
   header{
     background:linear-gradient(120deg,var(--blue-grad-a) 0%, var(--blue-grad-b) 60%, #63B4E6 100%);
     color:#fff;
@@ -46,7 +45,6 @@
   }
   header::before{ width:220px; height:220px; top:-90px; left:-60px; }
   header::after{ width:160px; height:160px; bottom:-80px; right:-40px; }
-
   .mascot-bg{
     position:absolute;
     font-size:170px;
@@ -59,7 +57,6 @@
     pointer-events:none;
     filter:brightness(1.6);
   }
-
   header h1{
     font-size:22px;
     margin:10px auto 4px;
@@ -87,8 +84,6 @@
     z-index:2;
     letter-spacing:1px;
   }
-
-  /* ---------- SUMMARY STRIP ---------- */
   .summary{
     max-width:920px;
     margin:-26px auto 0;
@@ -111,7 +106,6 @@
   .summary-item .lbl{ font-size:11.5px; color:var(--muted); }
   .summary-item.ok .num{ color:var(--green); }
   .summary-item.bad .num{ color:var(--red); }
-
   .bad-list{
     max-width:920px;
     margin:10px auto 0;
@@ -134,8 +128,6 @@
     text-decoration:none;
     box-shadow:0 2px 6px rgba(220,53,69,0.15);
   }
-
-  /* ---------- GRID ---------- */
   main{ max-width:920px; margin:0 auto; padding:28px 16px 60px; }
   .section-title{
     font-size:15px;
@@ -149,7 +141,6 @@
     gap:16px;
   }
   @media(max-width:520px){ .grid{ grid-template-columns:1fr; } }
-
   .card{
     background:var(--white);
     border-radius:20px;
@@ -196,7 +187,6 @@
     pointer-events:none;
   }
   .card .icon span{ position:relative; z-index:1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15)); }
-
   .icon-narcotic{ background:linear-gradient(150deg,#AFD5F0 0%,#78A3D4 55%,#5C87BE 100%); --icon-shadow:rgba(120,163,212,0.55); }
   .icon-reserve { background:linear-gradient(150deg,#FFC2D1 0%,#FF8FAB 55%,#F2678E 100%); --icon-shadow:rgba(255,143,171,0.5); }
   .icon-emer    { background:linear-gradient(150deg,#B9DEBD 0%,#76C58C 55%,#4FA76A 100%); --icon-shadow:rgba(102,187,106,0.5); }
@@ -213,8 +203,8 @@
   }
   .badge.ok{ background:#E7F7EC; color:var(--green); }
   .badge.bad{ background:#FDEBED; color:var(--red); }
+  .badge.pending{ background:#FFF6E0; color:#B8860B; }
   .badge.unknown{ background:#F1F3F6; color:var(--muted); }
-
   .card h3{ margin:2px 0 0; font-size:16.5px; }
   .card .desc{ font-size:12.5px; color:var(--muted); margin:0; line-height:1.5; }
   .card .meta{
@@ -223,7 +213,6 @@
     border-top:1px dashed #E4EBF2; padding-top:10px; margin-top:auto;
   }
   .card .go{ color:var(--blue); font-weight:700; }
-
   footer{
     text-align:center;
     padding:24px 16px 40px;
@@ -231,8 +220,6 @@
     color:var(--muted);
   }
   footer b{ color:var(--blue); }
-
-  /* small cute floating hearts on header tap */
   .peek{ display:inline-block; animation:wiggle 2.4s ease-in-out infinite; }
   @keyframes wiggle{ 0%,100%{transform:rotate(0);} 50%{transform:rotate(8deg);} }
 </style>
@@ -266,13 +253,6 @@
 </footer>
 
 <script>
-/* ============================================================
-   CONFIG — แก้ไขตรงนี้ที่เดียวเมื่อจะเชื่อมต่อระบบจริง
-   - url        : ลิงก์ปลายทางเมื่อกดการ์ด (หน้า GitHub Pages หรือ Apps Script)
-   - statusUrl  : (ไม่บังคับ) ปลายทาง Google Apps Script (doGet) ที่คืนค่า JSON
-                  รูปแบบ {"status":"ok"} หรือ {"status":"missing"}
-                  ถ้าไม่ใส่ / เชื่อมต่อไม่ได้ การ์ดจะแสดงสถานะ "ยังไม่เชื่อมต่อ"
-   ============================================================ */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
 
 const SYSTEMS = [
@@ -286,7 +266,7 @@ const SYSTEMS = [
   },
   {
     key: "reserve",
-    icon: "🐧",
+    icon: "💊",
     title: "ยาสำรองฉุกเฉิน",
     desc: "บันทึกการใช้ยาสำรอง • ตรวจนับสต๊อกทุกเวร",
     url: "reserve-check.html",
@@ -322,6 +302,7 @@ renderClock();
 function badgeHTML(state){
   if(state === "ok")      return `<span class="badge ok">✅ ครบ</span>`;
   if(state === "bad")     return `<span class="badge bad">🚨 ไม่ครบ</span>`;
+  if(state === "pending") return `<span class="badge pending">⏳ ยังไม่ตรวจวันนี้</span>`;
   return `<span class="badge unknown">⏳ รอเชื่อมต่อ</span>`;
 }
 
@@ -346,10 +327,11 @@ async function checkStatus(sys){
   try{
     const res = await fetch(sys.statusUrl, { method:"GET" });
     const data = await res.json();
-    return {
-      state: data.status === "ok" ? "ok" : "bad",
-      ts: data.checkedAt || null
-    };
+    let state = "unknown";
+    if(data.status === "ok") state = "ok";
+    else if(data.status === "incomplete") state = "bad";
+    else if(data.status === "unchecked") state = "pending";
+    return { state, ts: data.checkedAt || null };
   }catch(e){
     return { state:"unknown", ts:null };
   }
@@ -367,13 +349,17 @@ async function init(){
     else if(result.state === "bad"){ bad++; badSystems.push(sys); }
     else unknown++;
 
-    // update this card's badge + timestamp in place
     const card = grid.querySelector(`a[href="${sys.url}"]`);
     if(card){
       const badgeEl = card.querySelector(".badge");
       badgeEl.outerHTML = badgeHTML(result.state);
       const tsEl = card.querySelector(`#ts-${sys.key}`);
-      if(tsEl) tsEl.textContent = result.ts ? result.ts : (result.state === "unknown" ? "ยังไม่เชื่อมต่อ API" : "–");
+      if(tsEl){
+        if(result.ts) tsEl.textContent = result.ts;
+        else if(result.state === "unknown") tsEl.textContent = "ยังไม่เชื่อมต่อ API";
+        else if(result.state === "pending") tsEl.textContent = "ยังไม่มีการตรวจวันนี้";
+        else tsEl.textContent = "–";
+      }
     }
   }
   document.getElementById("sumOk").textContent = ok;
