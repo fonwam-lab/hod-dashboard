@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทดสอบ API | HOD Dashboard</title>
+<style>
+  body{ font-family:'Segoe UI','Noto Sans Thai',sans-serif; background:#F6FBFF; margin:0; padding:20px; color:#1D2939; }
+  h1{ font-size:18px; color:#0F4C81; }
+  .row{ background:#fff; border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 4px 12px rgba(15,76,129,0.1); }
+  .row h3{ margin:0 0 8px; font-size:15px; }
+  button{ background:#0F4C81; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:13px; cursor:pointer; margin-right:6px; }
+  pre{ background:#F1F5F9; padding:10px; border-radius:8px; font-size:12.5px; white-space:pre-wrap; word-break:break-all; margin-top:8px; min-height:20px; }
+  .ok{ color:#28A745; } .err{ color:#DC3545; }
+</style>
+</head>
+<body>
+<h1>🔧 ทดสอบ Apps Script API ทั้ง 4 ระบบ</h1>
+<p>กดปุ่ม "ทดสอบ" ของแต่ละระบบ ไม่ต้องพิมพ์ลิงก์เอง</p>
+
+<div id="rows"></div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
+const SYSTEMS = [
+  { key:"narcotic", label:"ยาเสพติด" },
+  { key:"reserve", label:"ยาสำรองฉุกเฉิน" },
+  { key:"emer", label:"รถ Emergency" },
+  { key:"defib", label:"Defibrillator" },
+];
+
+const rowsEl = document.getElementById("rows");
+rowsEl.innerHTML = SYSTEMS.map(s => `
+  <div class="row">
+    <h3>${s.label} (${s.key})</h3>
+    <button onclick="testStatus('${s.key}', 'status-${s.key}')">ทดสอบ mode=status</button>
+    <button onclick="testStatus('${s.key}', 'history-${s.key}', 'history')">ทดสอบ mode=history</button>
+    <pre id="status-${s.key}">ยังไม่ทดสอบ</pre>
+  </div>
+`).join("");
+
+async function testStatus(system, elId, mode){
+  mode = mode || "status";
+  const el = document.getElementById(elId);
+  el.textContent = "กำลังโหลด...";
+  const url = `${SCRIPT_URL}?system=${system}&mode=${mode}`;
+  try{
+    const res = await fetch(url);
+    const text = await res.text();
+    el.innerHTML = `<span class="ok">URL ที่เรียก:</span>\n${url}\n\n<span class="ok">ผลลัพธ์:</span>\n${text}`;
+  }catch(e){
+    el.innerHTML = `<span class="err">เรียกไม่สำเร็จ:</span> ${e.message}\n\nURL: ${url}`;
+  }
+}
+</script>
+</body>
+</html>
