@@ -1,5 +1,5 @@
 (function () {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI1lyaqoMGTC67F0LfvWsgCk57VNgJuHN9yEI8DORIDTNU2UyqkW3qY3Pzj68Rflvx4w/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWZsYePk2Vgn9XdCC6tZJ_V5vb13f8ZQyYMRNoBjBn2lYr2V_hHWF-MWjpeLAIAz_U/exec";
   const SESSION_HOURS = 12;
   const STORAGE_KEY = "hod_auth_until";
   const NAME_KEY = "hod_auth_name";
