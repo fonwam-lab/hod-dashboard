@@ -80,6 +80,19 @@ details[open] summary .arrow::before{ content:"▾"; }
 .extra-fields.show{ display:block; }
 .extra-fields label{ margin:4px 0 3px; }
 .extra-fields .row{ display:flex; gap:8px; }
+.exp-row{ margin-top:8px; }
+.exp-row label{ font-size:11.5px; color:var(--muted); display:flex; align-items:center; gap:6px; margin:4px 0 3px; }
+.exp-row input[type=date]{ padding:8px 10px; font-size:13px; }
+.exp-badge{ font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:999px; display:none; }
+.exp-badge.warn{ display:inline-block; background:#FFF0DB; color:#D97706; }
+.exp-badge.expired{ display:inline-block; background:#FDEBED; color:var(--red); }
+.exp-alert-banner{
+  background:#FFF0DB; border:1px solid #F5C97A; border-radius:14px;
+  padding:12px 14px; margin-bottom:14px; font-size:12.5px; color:#92600A; display:none;
+}
+.exp-alert-banner.show{ display:block; }
+.exp-alert-banner b{ display:block; margin-bottom:4px; font-size:13px; }
+.exp-alert-banner.has-expired{ background:#FDEBED; border-color:#F1AAB2; color:#8A2432; }
 .summary-bar{ display:flex; justify-content:space-around; text-align:center; margin-top:14px; padding-top:14px; border-top:1px dashed #E4EBF2; }
 .summary-bar div .n{ font-size:19px; font-weight:700; color:var(--blue); }
 .summary-bar div.ok .n{ color:var(--green); }
@@ -129,7 +142,8 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
   </div>
 
   <div class="card">
-    <p class="section-title">รายการตรวจนับ (55 รายการ)</p>
+    <p class="section-title">รายการตรวจนับ (54 รายการ)</p>
+    <div class="exp-alert-banner" id="expBanner"></div>
     <div id="itemsWrap">
     <details open>
       <summary><span>กล่องยาฉุกเฉิน (Emergency Drug Box) <span class="cat-badge">(8 รายการ)</span></span><span class="arrow"></span></summary>
@@ -140,6 +154,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -153,6 +171,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -164,6 +186,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="9">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -177,6 +203,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -188,6 +218,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -201,6 +235,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -213,6 +251,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -224,6 +266,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="2">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -240,6 +286,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -251,6 +301,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -264,6 +318,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -275,6 +333,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -288,6 +350,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -299,6 +365,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -312,6 +382,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -323,6 +397,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -336,6 +414,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -348,25 +430,17 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
       </div>
     </details>
     <details >
-      <summary><span>Mouth Gag <span class="cat-badge">(8 รายการ)</span></span><span class="arrow"></span></summary>
-      <div class="item-row" data-name="Mouth Gag ชมพู (40 mm)" data-std="2">
-        <div class="item-top">
-          <div class="item-name">Mouth Gag ชมพู (40 mm)<small>มาตรฐาน 2</small></div>
-          <div class="item-controls">
-            <input type="number" class="curQty" min="0" placeholder="2">
-            <span class="status-pill">–</span>
-          </div>
-        </div>
-        <div class="extra-fields">
-        <label style="margin-top:0">จำนวนที่ขาด</label>
-        <input type="text" class="usedQty" readonly></div>
-      </div>
+      <summary><span>Mouth Gag <span class="cat-badge">(7 รายการ)</span></span><span class="arrow"></span></summary>
       <div class="item-row" data-name="Mouth Gag น้ำเงินเล็ก (50 mm)" data-std="1">
         <div class="item-top">
           <div class="item-name">Mouth Gag น้ำเงินเล็ก (50 mm)<small>มาตรฐาน 1</small></div>
@@ -374,6 +448,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -387,6 +465,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -398,6 +480,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="2">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -411,6 +497,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -422,6 +512,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="2">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -435,6 +529,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -446,6 +544,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="2">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -462,6 +564,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -474,6 +580,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -485,6 +595,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -501,6 +615,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -513,6 +631,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -524,6 +646,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="1">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -540,6 +666,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -551,6 +681,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -564,6 +698,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -575,6 +713,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -588,6 +730,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -599,6 +745,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -612,6 +762,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -623,6 +777,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -636,6 +794,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -647,6 +809,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -660,6 +826,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -672,6 +842,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -683,6 +857,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -699,6 +877,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -710,6 +892,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -723,6 +909,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -734,6 +924,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -747,6 +941,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -758,6 +956,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -771,6 +973,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -782,6 +988,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <input type="number" class="curQty" min="0" placeholder="3">
             <span class="status-pill">–</span>
           </div>
+        </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -798,6 +1008,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -810,6 +1024,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
+        <div class="exp-row">
+          <label>วันหมดอายุ (Exp.) <span class="exp-badge"></span></label>
+          <input type="date" class="expDate">
+        </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
         <input type="text" class="usedQty" readonly></div>
@@ -817,7 +1035,7 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
     </details>
     </div>
     <div class="summary-bar">
-      <div><div class="n" id="sumTotal">55</div><div class="l">ทั้งหมด</div></div>
+      <div><div class="n" id="sumTotal">54</div><div class="l">ทั้งหมด</div></div>
       <div class="ok"><div class="n" id="sumOk">0</div><div class="l">ครบ</div></div>
       <div class="bad"><div class="n" id="sumBad">0</div><div class="l">ไม่ครบ</div></div>
     </div>
@@ -884,6 +1102,64 @@ function updateSummary(){
   document.getElementById("sumBad").textContent = bad;
 }
 
+const EXP_WARN_DAYS = 30; // แจ้งเตือนล่วงหน้าก่อนหมดอายุกี่วัน
+
+function checkExpiry(row){
+  const input = row.querySelector(".expDate");
+  const badge = row.querySelector(".exp-badge");
+  if(!input.value){
+    badge.textContent = ""; badge.className = "exp-badge";
+    updateExpBanner();
+    return;
+  }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const expDate = new Date(input.value + "T00:00:00");
+  const diffDays = Math.round((expDate - today) / 86400000);
+
+  if(diffDays < 0){
+    badge.textContent = "❌ หมดอายุแล้ว"; badge.className = "exp-badge expired";
+  } else if(diffDays <= EXP_WARN_DAYS){
+    badge.textContent = `⚠️ อีก ${diffDays} วัน`; badge.className = "exp-badge warn";
+  } else {
+    badge.textContent = ""; badge.className = "exp-badge";
+  }
+  updateExpBanner();
+}
+
+function updateExpBanner(){
+  const banner = document.getElementById("expBanner");
+  const expired = [];
+  const warning = [];
+  document.querySelectorAll(".item-row").forEach(row=>{
+    const input = row.querySelector(".expDate");
+    if(!input.value) return;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const expDate = new Date(input.value + "T00:00:00");
+    const diffDays = Math.round((expDate - today) / 86400000);
+    if(diffDays < 0) expired.push(row.dataset.name);
+    else if(diffDays <= EXP_WARN_DAYS) warning.push(row.dataset.name);
+  });
+
+  if(expired.length === 0 && warning.length === 0){
+    banner.className = "exp-alert-banner";
+    banner.innerHTML = "";
+    return;
+  }
+  let html = "";
+  if(expired.length){
+    html += `<b>❌ อุปกรณ์/ยาหมดอายุแล้ว (${expired.length} รายการ)</b>${expired.join(", ")}`;
+  }
+  if(warning.length){
+    html += `${expired.length ? '<br><br>' : ''}<b>⚠️ ใกล้หมดอายุภายใน ${EXP_WARN_DAYS} วัน (${warning.length} รายการ)</b>${warning.join(", ")}`;
+  }
+  banner.innerHTML = html;
+  banner.className = "exp-alert-banner show" + (expired.length ? " has-expired" : "");
+}
+
+document.querySelectorAll(".expDate").forEach(inp=>{
+  inp.addEventListener("change", ()=> checkExpiry(inp.closest(".item-row")));
+});
+
 document.querySelectorAll(".item-row .curQty").forEach(inp=>{
   inp.addEventListener("input", ()=> updateRow(inp.closest(".item-row")));
 });
@@ -915,7 +1191,8 @@ document.getElementById("submitBtn").addEventListener("click", async ()=>{
       name: r.dataset.name,
       std: r.dataset.std,
       current: cur,
-      status: isOk ? "ครบ" : "ไม่ครบ"
+      status: isOk ? "ครบ" : "ไม่ครบ",
+      expDate: r.querySelector(".expDate") ? r.querySelector(".expDate").value : ""
     };
     if(!isOk){
       entry.shortage = r.querySelector(".usedQty") ? r.querySelector(".usedQty").value : "";
@@ -975,7 +1252,29 @@ async function loadHistory(){
     body.innerHTML = '<tr><td colspan="4" class="empty-row">โหลดประวัติไม่สำเร็จ</td></tr>';
   }
 }
+async function loadLatestExpiry(){
+  try{
+    const res = await fetch(`${SCRIPT_URL}?system=${SYSTEM_KEY}&mode=history`);
+    const rows = await res.json();
+    if(!Array.isArray(rows) || rows.length === 0) return;
+    const latest = rows[0]; // ล่าสุดสุด (loadHistory เรียงล่าสุดมาก่อนแล้ว)
+    if(!latest.items) return;
+    latest.items.forEach(it=>{
+      if(!it.expDate) return;
+      const row = document.querySelector(`.item-row[data-name="${CSS.escape(it.name)}"]`);
+      if(row){
+        const input = row.querySelector(".expDate");
+        if(input && !input.value) input.value = it.expDate;
+      }
+    });
+    document.querySelectorAll(".item-row").forEach(checkExpiry);
+  }catch(e){
+    // เงียบไว้ ไม่ต้องแจ้ง error สำหรับส่วนนี้
+  }
+}
+
 loadHistory();
+loadLatestExpiry();
 </script>
 </body>
 </html>
