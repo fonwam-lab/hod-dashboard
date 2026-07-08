@@ -86,26 +86,30 @@ details[open] summary .arrow::before{ content:"▾"; }
 .extra-fields label{ margin:4px 0 3px; }
 .extra-fields .row{ display:flex; gap:8px; }
 .exp-row{ margin-top:8px; }
-.used-toggle{
-  display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted);
-  cursor:pointer; user-select:none; margin-top:8px;
-}
-.used-toggle input[type=checkbox]{ width:14px; height:14px; accent-color: var(--red); cursor:pointer; }
 .item-row.is-used{ background:#FFF8F8; border-radius:12px; margin:0 -8px; padding-left:8px; padding-right:8px; }
 .item-row.is-used .item-name{ text-decoration:line-through; color:var(--muted); }
-.item-row.is-used .used-toggle{ color:var(--red); font-weight:700; }
 .used-exp-summary{ display:none; font-size:10.5px; color:var(--red); font-weight:700; margin-top:2px; }
 .used-exp-summary.show{ display:block; }
-.refill-toggle{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); cursor:pointer; user-select:none; }
-.refill-toggle input[type=checkbox]{ width:14px; height:14px; accent-color: var(--blue-grad-a, var(--blue)); cursor:pointer; }
+.exp-toggle-link{
+  display:inline-flex; align-items:center; gap:6px; font-size:11.5px; color:var(--blue-grad-a, var(--blue));
+  cursor:pointer; user-select:none; font-weight:600;
+}
+.exp-toggle-link:hover{ text-decoration:underline; }
+.exp-toggle-link.active{ color:var(--red); }
 .exp-row input[type=date]{ padding:8px 10px; font-size:13px; margin-top:6px; }
 .exp-context-label{ display:none; font-size:11px; color:var(--muted); margin-top:6px; }
 .exp-context-label.show{ display:block; }
 .exp-batches{ display:none; margin-top:6px; }
 .exp-batches.show{ display:block; }
 .exp-batch-row{ display:flex; gap:6px; margin-top:6px; align-items:center; }
-.exp-batch-row .ebQty{ width:64px; padding:8px 6px; text-align:center; }
 .exp-batch-row .ebDate{ flex:1; padding:8px 8px; font-size:13px; }
+.exp-batch-row .unit-used-toggle{
+  display:flex; align-items:center; gap:4px; font-size:11px; color:var(--muted);
+  cursor:pointer; user-select:none; white-space:nowrap;
+}
+.exp-batch-row .unit-used-toggle input[type=checkbox]{ width:14px; height:14px; accent-color: var(--red); cursor:pointer; }
+.exp-batch-row.unit-used .ebDate{ text-decoration:line-through; color:var(--muted); background:#F1F3F6; }
+.exp-batch-row.unit-used .unit-used-toggle{ color:var(--red); font-weight:700; }
 .exp-batch-row .removeExpBtn{
   border:none; background:#FDEBED; color:var(--red); width:28px; height:28px;
   border-radius:8px; font-size:14px; cursor:pointer; flex-shrink:0;
@@ -192,10 +196,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -210,10 +214,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -228,10 +232,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -246,10 +250,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -264,10 +268,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -282,10 +286,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -300,10 +304,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -318,10 +322,10 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
           </div>
         </div>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -338,12 +342,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -357,12 +360,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -376,12 +378,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -395,12 +396,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -414,12 +414,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -433,12 +432,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -452,12 +450,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -471,12 +468,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -490,12 +486,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -509,12 +504,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -531,12 +525,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -550,12 +543,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -569,12 +561,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -588,12 +579,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -607,12 +597,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -626,12 +615,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -645,12 +633,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -667,12 +654,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -686,12 +672,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -705,12 +690,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -727,12 +711,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -746,12 +729,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -765,12 +747,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -787,12 +768,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -806,12 +786,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -825,12 +804,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -844,12 +822,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -863,12 +840,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -882,12 +858,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -901,12 +876,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -920,12 +894,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -939,12 +912,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -958,12 +930,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -977,12 +948,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -996,12 +966,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1015,12 +984,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1037,12 +1005,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1056,12 +1023,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1075,12 +1041,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1094,12 +1059,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1113,12 +1077,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1132,12 +1095,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1151,12 +1113,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1170,12 +1131,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1192,12 +1152,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1211,12 +1170,11 @@ th{ color:var(--muted); font-weight:600; font-size:11.5px; }
             <span class="status-pill">–</span>
           </div>
         </div>
-        <label class="used-toggle"><input type="checkbox" class="usedChk"> Exp. อุปกรณ์แต่ละชิ้น (ใช้ไปแล้ว)</label>
         <div class="exp-row">
-          <label class="refill-toggle"><input type="checkbox" class="refillChk"> มีการเติมของใหม่ <span class="exp-badge"></span></label>
+          <span class="exp-toggle-link">📅 เติมของใหม่ / วันหมดอายุ <span class="exp-badge"></span></span>
           <span class="exp-context-label"></span>
           <div class="exp-batches"></div>
-          <button type="button" class="add-exp-btn">+ เพิ่มล็อต/วันหมดอายุอีกชุด</button>
+          <button type="button" class="add-exp-btn">+ เพิ่มชิ้น/วันหมดอายุ</button>
         </div>
         <div class="extra-fields">
         <label style="margin-top:0">จำนวนที่ขาด</label>
@@ -1335,23 +1293,31 @@ function updateSummary(){
 
 const EXP_WARN_DAYS = 30; // แจ้งเตือนล่วงหน้าก่อนหมดอายุกี่วัน
 
-function makeExpBatchRow(qty, date){
+function makeExpBatchRow(date, used){
   const div = document.createElement("div");
-  div.className = "exp-batch-row";
+  div.className = "exp-batch-row" + (used ? " unit-used" : "");
   div.innerHTML = `
-    <input type="number" class="ebQty" min="1" placeholder="จำนวน" value="${qty ?? ''}">
     <input type="date" class="ebDate" value="${date ?? ''}">
+    <label class="unit-used-toggle"><input type="checkbox" class="euUsedChk" ${used ? "checked" : ""}> ใช้แล้ว</label>
     <button type="button" class="removeExpBtn">✕</button>`;
   div.querySelector(".ebDate").addEventListener("change", ()=>{
     const row = div.closest(".item-row");
     checkExpiry(row);
     updateUsedSummary(row);
   });
+  div.querySelector(".euUsedChk").addEventListener("change", (e)=>{
+    div.classList.toggle("unit-used", e.target.checked);
+    const row = div.closest(".item-row");
+    checkExpiry(row);
+    updateUsedSummary(row);
+    updateUsedCount();
+  });
   div.querySelector(".removeExpBtn").addEventListener("click", ()=>{
     const row = div.closest(".item-row");
     div.remove();
     checkExpiry(row);
     updateUsedSummary(row);
+    updateUsedCount();
   });
   return div;
 }
@@ -1359,14 +1325,15 @@ function makeExpBatchRow(qty, date){
 document.querySelectorAll(".add-exp-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
     const container = btn.previousElementSibling; // .exp-batches
-    container.appendChild(makeExpBatchRow("", ""));
+    container.appendChild(makeExpBatchRow("", false));
   });
 });
 
 /** คืนค่าวันหมดอายุที่ใกล้ที่สุด (ในบรรดาหลายล็อตของรายการเดียวกัน) หรือ null ถ้าไม่มีเลย */
 function getEarliestExpDate(row){
-  const dates = Array.from(row.querySelectorAll(".ebDate"))
-    .map(inp => inp.value)
+  const dates = Array.from(row.querySelectorAll(".exp-batch-row"))
+    .filter(r => !r.classList.contains("unit-used"))
+    .map(r => r.querySelector(".ebDate").value)
     .filter(v => v);
   if(dates.length === 0) return null;
   dates.sort();
@@ -1437,23 +1404,24 @@ function getUsedExpSummarySpan(row){
 }
 
 function updateUsedSummary(row){
-  const usedChk = row.querySelector(".usedChk");
   const span = getUsedExpSummarySpan(row);
-  if(!usedChk || !usedChk.checked){
+  const unitRows = Array.from(row.querySelectorAll(".exp-batch-row"));
+  const usedUnits = unitRows.filter(r => r.classList.contains("unit-used"));
+
+  if(usedUnits.length === 0){
     span.textContent = "";
     span.classList.remove("show");
+    row.classList.remove("is-used");
     return;
   }
-  const dates = Array.from(row.querySelectorAll(".ebDate")).map(i=>i.value).filter(v=>v);
-  if(dates.length === 0){
-    span.textContent = "🔴 ใช้แล้ว (ยังไม่ระบุวันหมดอายุ)";
-  } else if(dates.length === 1){
-    span.textContent = `🔴 ใช้แล้ว • Exp: ${dates[0]}`;
-  } else {
-    dates.sort();
-    span.textContent = `🔴 ใช้แล้ว • ${dates.length} ล็อต Exp: ${dates.join(", ")}`;
-  }
+
+  const dates = usedUnits.map(r => r.querySelector(".ebDate").value).filter(v=>v).sort();
+  const totalUnits = unitRows.length;
+  span.textContent = totalUnits > 0
+    ? `🔴 ใช้แล้ว ${usedUnits.length}/${totalUnits} ชิ้น • Exp: ${dates.join(", ") || "-"}`
+    : `🔴 ใช้แล้ว ${usedUnits.length} ชิ้น • Exp: ${dates.join(", ") || "-"}`;
   span.classList.add("show");
+  row.classList.add("is-used");
 }
 
 /**
@@ -1464,35 +1432,31 @@ function collapseAllExpUI(){
   document.querySelectorAll(".exp-batches").forEach(el => el.classList.remove("show"));
   document.querySelectorAll(".add-exp-btn").forEach(el => el.classList.remove("show"));
   document.querySelectorAll(".exp-context-label").forEach(el => el.classList.remove("show"));
+  document.querySelectorAll(".exp-toggle-link").forEach(el => el.classList.remove("active"));
 }
 
 function updateExpVisibility(row){
-  const refillChk = row.querySelector(".refillChk");
-  const usedChk = row.querySelector(".usedChk");
+  const toggleLink = row.querySelector(".exp-toggle-link");
   const batchesEl = row.querySelector(".exp-batches");
   const addBtn = row.querySelector(".add-exp-btn");
   const contextLabel = row.querySelector(".exp-context-label");
-  if(!batchesEl) return;
-  const refillOn = refillChk && refillChk.checked;
-  const usedOn = usedChk && usedChk.checked;
+  if(!batchesEl || !toggleLink) return;
+  const isActive = toggleLink.classList.contains("active");
 
   if(contextLabel){
-    if(usedOn){
-      contextLabel.textContent = "ระบุวันหมดอายุของชิ้นที่ใช้ออกไป (กด + เพิ่มได้ถ้ามีหลายวันไม่เท่ากัน)";
-      contextLabel.classList.add("show");
-    } else if(refillOn){
-      contextLabel.textContent = "ระบุวันหมดอายุของของใหม่ที่เติมเข้ามา (กด + เพิ่มได้ถ้าเติมหลายล็อต)";
+    if(isActive){
+      contextLabel.textContent = "ระบุวันหมดอายุของแต่ละชิ้น (กด + เพิ่มได้ทีละชิ้น ติ๊ก \"ใช้แล้ว\" เมื่อดึงชิ้นนั้นออกไปใช้)";
       contextLabel.classList.add("show");
     } else {
       contextLabel.classList.remove("show");
     }
   }
 
-  if(refillOn || usedOn){
+  if(isActive){
     batchesEl.classList.add("show");
     addBtn.classList.add("show");
     if(batchesEl.children.length === 0){
-      batchesEl.appendChild(makeExpBatchRow("", ""));
+      batchesEl.appendChild(makeExpBatchRow("", false));
     }
   } else {
     batchesEl.classList.remove("show");
@@ -1500,35 +1464,18 @@ function updateExpVisibility(row){
   }
 }
 
-document.querySelectorAll(".usedChk").forEach(chk=>{
-  chk.addEventListener("change", ()=>{
-    const row = chk.closest(".item-row");
-    row.classList.toggle("is-used", chk.checked);
-    updateUsedCount();
+document.querySelectorAll(".exp-toggle-link").forEach(link=>{
+  link.addEventListener("click", ()=>{
+    const row = link.closest(".item-row");
+    link.classList.toggle("active");
     updateExpVisibility(row);
-    updateUsedSummary(row);
-    if(chk.checked){
-      const expInput = row.querySelector(".expDate");
-      if(expInput) expInput.focus();
-    }
   });
 });
 
 function updateUsedCount(){
-  const count = document.querySelectorAll(".usedChk:checked").length;
+  const count = document.querySelectorAll(".item-row.is-used").length;
   document.getElementById("sumUsed").textContent = count;
 }
-
-document.querySelectorAll(".refillChk").forEach(chk=>{
-  chk.addEventListener("change", ()=>{
-    const row = chk.closest(".item-row");
-    updateExpVisibility(row);
-    if(chk.checked){
-      const expInput = row.querySelector(".expDate");
-      if(expInput) expInput.focus();
-    }
-  });
-});
 
 document.querySelectorAll(".item-row .curQty").forEach(inp=>{
   inp.addEventListener("input", ()=> updateRow(inp.closest(".item-row")));
@@ -1559,10 +1506,11 @@ document.getElementById("submitBtn").addEventListener("click", async ()=>{
     if(!isOk) allOk = false;
 
     const expBatches = Array.from(r.querySelectorAll(".exp-batch-row")).map(br=>({
-      qty: br.querySelector(".ebQty").value,
-      expDate: br.querySelector(".ebDate").value
-    })).filter(b => b.qty || b.expDate);
-    const earliestExp = expBatches.map(b=>b.expDate).filter(v=>v).sort()[0] || "";
+      expDate: br.querySelector(".ebDate").value,
+      used: br.querySelector(".euUsedChk").checked
+    })).filter(b => b.expDate || b.used);
+    const earliestExp = expBatches.filter(b=>!b.used).map(b=>b.expDate).filter(v=>v).sort()[0] || "";
+    const usedCount = expBatches.filter(b=>b.used).length;
 
     const entry = {
       name: r.dataset.name,
@@ -1570,8 +1518,8 @@ document.getElementById("submitBtn").addEventListener("click", async ()=>{
       current: cur,
       status: isOk ? "ครบ" : "ไม่ครบ",
       expBatches,
-      expDate: earliestExp, // วันที่ใกล้หมดอายุที่สุด เก็บไว้ใช้แสดงผลง่ายๆ / เข้ากันได้กับข้อมูลเก่า
-      usedUp: r.querySelector(".usedChk") ? r.querySelector(".usedChk").checked : false
+      expDate: earliestExp, // วันที่ใกล้หมดอายุที่สุด (เฉพาะชิ้นที่ยังไม่ถูกใช้) เก็บไว้ใช้แสดงผลง่ายๆ
+      usedUp: usedCount > 0
     };
     if(!isOk){
       entry.shortage = r.querySelector(".usedQty") ? r.querySelector(".usedQty").value : "";
@@ -1645,24 +1593,18 @@ async function loadLatestExpiry(){
       const batchesEl = row.querySelector(".exp-batches");
 
       if(Array.isArray(it.expBatches) && it.expBatches.length > 0){
-        // ข้อมูลรูปแบบใหม่: หลายล็อต/หลายวันหมดอายุ
+        // ข้อมูลรูปแบบใหม่: แต่ละชิ้นมีวันหมดอายุ + สถานะใช้แล้วของตัวเอง
         it.expBatches.forEach(b=>{
-          if(b.qty || b.expDate) batchesEl.appendChild(makeExpBatchRow(b.qty, b.expDate));
+          if(b.expDate || b.used) batchesEl.appendChild(makeExpBatchRow(b.expDate, !!b.used));
         });
       } else if(it.expDate){
-        // ข้อมูลเก่าก่อนรองรับหลายล็อต (มีแค่ expDate เดี่ยว)
-        batchesEl.appendChild(makeExpBatchRow("", it.expDate));
-      }
-
-      if(it.usedUp){
-        const usedChk = row.querySelector(".usedChk");
-        if(usedChk) usedChk.checked = true;
+        // ข้อมูลเก่าก่อนรองรับหลายชิ้น (มีแค่ expDate เดี่ยว)
+        batchesEl.appendChild(makeExpBatchRow(it.expDate, false));
       }
     });
     document.querySelectorAll(".item-row").forEach(row=>{
       checkExpiry(row);
       updateExpVisibility(row);
-      row.classList.toggle("is-used", row.querySelector(".usedChk") ? row.querySelector(".usedChk").checked : false);
       updateUsedSummary(row);
     });
     updateUsedCount();
