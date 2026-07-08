@@ -1456,6 +1456,16 @@ function updateUsedSummary(row){
   span.classList.add("show");
 }
 
+/**
+ * เก็บหน้าจอให้เรียบร้อยหลังบันทึกสำเร็จ: ซ่อนช่องแก้ไขวันหมดอายุ/ปุ่มเพิ่มล็อตทั้งหมด
+ * (checkbox ที่ติ๊กไว้ + สรุปสีแดงใต้ชื่อรายการ ยังคงอยู่เหมือนเดิม แค่ซ่อนส่วนแก้ไขที่รกตา)
+ */
+function collapseAllExpUI(){
+  document.querySelectorAll(".exp-batches").forEach(el => el.classList.remove("show"));
+  document.querySelectorAll(".add-exp-btn").forEach(el => el.classList.remove("show"));
+  document.querySelectorAll(".exp-context-label").forEach(el => el.classList.remove("show"));
+}
+
 function updateExpVisibility(row){
   const refillChk = row.querySelector(".refillChk");
   const usedChk = row.querySelector(".usedChk");
@@ -1592,6 +1602,7 @@ document.getElementById("submitBtn").addEventListener("click", async ()=>{
       body: JSON.stringify(payload)
     });
     showToast("บันทึกผลการตรวจนับเรียบร้อย ✅");
+    collapseAllExpUI();
     loadHistory();
   }catch(e){
     showToast("บันทึกไม่สำเร็จ ตรวจสอบการเชื่อมต่อ", true);
